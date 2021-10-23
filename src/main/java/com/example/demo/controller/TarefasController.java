@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -56,10 +57,42 @@ public class TarefasController {
 		}
 
 	}
+	
+	@GetMapping(value = "/listar/tarefas/{tarefa}/{id}")
+	public ResponseEntity<List<TarefasModel>>GetByTarefaAndId(
+			@PathVariable String tarefa,  
+			@PathVariable Long id) {
+		return ResponseEntity.ok(tarefasRepository.findByTarefaAndId(tarefa, id));
+	}
+	
+	/*
+	@GetMapping(value = "/listar/tarefas/{tarefas}/{id}")
+	public ResponseEntity<List<TarefasModel>> GetByTarefaOrId(@PathVariable String tarefa,@PathVariable Long id) {
+		return ResponseEntity.ok(tarefasRepository.findByTarefaOrId(tarefa, id));
+	}
+	
+	*/
+	
 
 	@PostMapping("/salvar/tarefas")
 	public ResponseEntity<TarefasModel> post(@RequestBody TarefasModel tarefinha) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(tarefasRepository.save(tarefinha));
 	}
+	
+	
+	@PutMapping("/atualizar/tab/{id}")
+	public TarefasModel atualizar(@PathVariable Long id, @RequestBody TarefasModel model) {
+		model.setId(id);
+		tarefasRepository.save(model);
+		return model;
+
+		}
+	
+	
+	
+	
+	
+	
+	
 
 }

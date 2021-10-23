@@ -15,8 +15,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 public class TarefasModel {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	private Long id;
 
 	@Column
@@ -56,7 +55,8 @@ public class TarefasModel {
 	public void setCriadoEm(Date criadoEm) {
 		this.criadoEm = criadoEm;
 	}
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
 		return id;
 	}
